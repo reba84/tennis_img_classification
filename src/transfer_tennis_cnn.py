@@ -18,6 +18,23 @@ def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
     use once to vary images once cnn is working
 
     '''
+    # keras.preprocessing.image.ImageDataGenerator(featurewise_center=False,
+    #     samplewise_center=False,
+    #     featurewise_std_normalization=False,
+    #     samplewise_std_normalization=False,
+    #     zca_whitening=False,
+    #     rotation_range=0.,
+    #     width_shift_range=0.,
+    #     height_shift_range=0.,
+    #     shear_range=0.,
+    #     zoom_range=0.,
+    #     channel_shift_range=0.,
+    #     fill_mode='nearest',
+    #     cval=0.,
+    #     horizontal_flip=False,
+    #     vertical_flip=False,
+    #     rescale=None,
+    #     dim_ordering=K.image_dim_ordering())
 
     train_datagen = ImageDataGenerator(rescale=1./255,
                                         horizontal_flip = True,
@@ -35,6 +52,7 @@ def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
             #color_mode = "grayscale",
             #class_mode='binary',
             shuffle=True)
+
 
     test_processing = test_datagen.flow_from_directory(
             test_dir,
