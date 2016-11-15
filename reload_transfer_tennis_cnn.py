@@ -111,7 +111,7 @@ def fit_net(model, train_data, test_data, n_train_samples, n_test_samples, epoch
 def save_model(fit, loaded_model, epoch, batch_size, n_train_samples, n_test_samples):
 
     '''
-    saves weights and archtecture of final model and a log file of the validation/training accuracy and loss 
+    saves weights and archtecture of final model and a log file of the validation/training accuracy and loss
 
     Input
     -----
