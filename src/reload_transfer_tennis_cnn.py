@@ -14,7 +14,18 @@ from datetime import datetime
 
 
 def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
+'''
+Input
+Generates batches of resized (with img_width and img_height) with any augmentations
+set in the ImageDataGenerator.
+-----
+test and train directories, size of batchs as batch_size,
+desired image width and height
 
+Output
+-----
+train_data, test_data, n_train_samples, n_test_samples
+'''
     train_datagen = ImageDataGenerator(rescale=1./255,
                                         horizontal_flip = True,
                                         vertical_flip = False,
@@ -24,7 +35,7 @@ def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
 
     test_datagen = ImageDataGenerator(rescale=1./255)
 
-    train_processing = train_datagen.flow_from_directory(
+    train_data = train_datagen.flow_from_directory(
             train_dir,
             target_size=(img_width, img_height),
             batch_size=batch_size,
@@ -33,7 +44,7 @@ def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
             shuffle=True)
 
 
-    test_processing = test_datagen.flow_from_directory(
+    test_data = test_datagen.flow_from_directory(
             test_dir,
             target_size=(img_width, img_height),
             batch_size=batch_size,
@@ -41,14 +52,22 @@ def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
             #class_mode='binary',
             shuffle=True)
 
-    n_train_samples = train_processing.nb_sample
-    n_test_samples = test_processing.nb_sample
-
-    return train_processing, test_processing, n_train_samples, n_test_samples
+    return train_processing, test_processing
 
 def load_net(weights_path, architecture_path):
+    '''
+    Weights are loaded from a .h5 file and the architecture is loaded from .json file.
 
-        # load json and create model
+    Input
+    ----
+    local path to weights file, local path to json file
+
+    Output
+    -----
+    loaded_model
+    '''
+
+    # load json and create model
     json_file = open(architecture_path, 'r')
     loaded_model_json = json_file.read()
     json_file.close()
@@ -65,15 +84,42 @@ def load_net(weights_path, architecture_path):
                   metrics=['accuracy'])
     return loaded_model
 
-def fit_net(model, train_processing, test_processing, n_train_samples, n_test_samples, epoch):
+def fit_net(model, train_data, test_data, n_train_samples, n_test_samples, epoch):
+    '''
+    takes a model and fits it to training data and validtates it against a set of validation data
+    sets callbacks in case server crashes for best validation loss values and
+    saves to file in directory "transfer_weights"
+
+    Input
+    ---
+    model from load_net function
+    train_data from image_processing function
+    test_data from image_processing function
+
+    Output
+
+    Fitted model
+    '''
+    num_train_samples = train_data.nb_sample
+    num_test_samples = test_data.nb_sample
     epoch_weights = ModelCheckpoint(filepath = 'transfer_weights/weights.{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', verbose=0, save_best_only=True)
-    fit = model.fit_generator(train_processing, samples_per_epoch = n_train_samples, nb_epoch = epoch, validation_data = test_processing, nb_val_samples = n_test_samples, callbacks = [epoch_weights])
+    fit = model.fit_generator(train_processing, samples_per_epoch = num_train_samples, nb_epoch = epoch, validation_data = test_processing, nb_val_samples = num_test_samples, callbacks = [epoch_weights])
     accuracy = 'acc: {}, loss: {}, val_acc: {}, val_loss: {}'.format(*fit.history.values())
     return fit
 
 
-def save_model(fit, epoch, batch_size, n_train_samples, n_test_samples):
-    ## --- Save Settings ---
+def save_model(fit, loaded_model, epoch, batch_size, n_train_samples, n_test_samples):
+
+    '''
+    saves weights and archtecture of final model and a log file of the validation/training accuracy and loss
+
+    Input
+    -----
+    fitted model from fit_net function
+
+
+    '''
+
     datetime_str = str(datetime.now()).split('.')[0]
 
     #Save Weights & Model
