@@ -39,6 +39,7 @@ if __name__ == '__main__':
     #load net here
     model = reload_net.load_net(weights_path, architecture_path)
     image_predictions, targets = predict_image(image_directory)
+    print image_predictions
     print confusion_matrix(targets, image_predictions)
     print accuracy_score(targets, image_predictions)
     print cohen_kappa_score(targets, image_predictions)

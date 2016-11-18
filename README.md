@@ -20,7 +20,7 @@
 
 ## Motivation
 
-
+The goal of the project is to build a neural network model to automate the classification of tennis video for the company Cizr.  This would allow the out of play portion of the video to be automatically cut and the active play portions can be packaged for players or coaches.
 
 ## Data
   The model takes images from directories that are named with the labels of the data.  All resizing and augmentations happen within the functions that generate batches for the neural network.  
@@ -35,15 +35,47 @@ Figure 1
 
 ### Transfer Learning
 
-Transfer learning allows new models to reuse weights generated from previously trained neural networks.  This is useful because the first several layers of a network are learning general things about an image.  
+Transfer learning allows new models to reuse weights generated from previously trained neural networks(Figure 2).  This is useful because the first several layers of a network are learning general things about an image.  
 
 ![Transfer Network](https://cloud.githubusercontent.com/assets/17914936/20403126/286226fe-acc5-11e6-9855-693183fab83e.png?style=centerme)
 Figure 2
 
 ## Running Model
 
-reload_transfer_tennis_cnn, reloads a model from saved weights, so that you can make predictions with it.  reload_transfer_tennis_cnn.py is used by new_image_prediction.py which takes images from a directory and makes predictions on them and returns a numpy array of predictions.
-​​​​The neural net that takes the weights from "generate_weights" is transfer_tennis_cnn.py.  This is how a new model is fitted if you wanted to add data or change parameters.
+###### The file structure for the repository:
+
+```  
+  ├── README.md  
+  ├── .gitignore  
+  ├── src   
+  │     ├── generate_weights_for_transfer.py  
+  |     ├── images_download.py  
+  |     ├── new_image_prediction.py    
+  │     ├── reload_transfer_tennis_cnn.py
+  |     ├── text_file_formatter.py
+  |     ├── transfer_tennis_cnn.py  
+  ├── test  
+  │     ├── inside_point  
+  |     ├── outside_point  
+  |     ├── serve  
+  ├── train  
+  │     ├── inside_point  
+  |     ├── outside_point  
+  |     ├── serve  
+  └── weights
+```
+
+###### To format image names and download them into directories with the classification labels:
+1. Run text_file_formater.py to get image names
+2. Run images_downlad.py in the correctly labeled directory to add images to the directory
+
+###### To train a new transfer network on new images:
+1. Run generate_weights.py to build a fully trained classifier and save the weights
+2. Run transfer_tennis_cnn.py to load your classifier and the vgg16 weights and fine tune the weights and save a final model
+
+###### To make predictions on new images:
+1. Edit new_image_prediction.py with the directory of your images and run new_image_prediction.py
+
 
 ## Performance
 
