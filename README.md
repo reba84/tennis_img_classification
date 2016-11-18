@@ -1,8 +1,9 @@
 # Readme
-# Tennis Image classification  
-### Galvanize Capstone Project
-  Code for building a transfer learning neural network using python's Keras library.  Weights for the transfer network can be obtained from [VGG16 Github](https://gist.github.com/baraldilorenzo/07d7802847aaad0a35d3).   
+# Tennis Image classification
 
+## Overview
+
+The goal of the project is to build a neural network model to automate the classification of tennis video for the company Cizr.  This would allow the out of play portion of the video to be automatically cut and the active play portions can be packaged for players or coaches.
 
 ## Table of Contents
 1. [Dependencies](https://github.com/reba84/tennis_img_classification/blob/master/README.md#dependencies)
@@ -13,20 +14,18 @@
 6. [Performance](https://github.com/reba84/tennis_img_classification/blob/master/README.md#performance)
 
 ## Dependencies
-  * Python 2.7
-  * Keras
-  * Numpy
-  * Theano
-
-## Motivation
-
-The goal of the project is to build a neural network model to automate the classification of tennis video for the company Cizr.  This would allow the out of play portion of the video to be automatically cut and the active play portions can be packaged for players or coaches.
+  * [Python 2.7](https://www.python.org/download/releases/2.7/)
+  * [Keras](https://keras.io/)
+  * [Numpy](http://www.numpy.org/)
+  * [Theano](http://deeplearning.net/software/theano/)
 
 ## Data
   The model takes images from directories that are named with the labels of the data.  All resizing and augmentations happen within the functions that generate batches for the neural network.  
 
 ## Model
+
 This model employs supervised learning, specifically deep learning and transfer learning techiniques to deal with a complex dataset
+
 ### Deep Learning
 Deep learning neural networks are powerful techniques for understanding and learning about complicated datasets.  Neural networks are made of layers that process data in different ways, for example by aggregating data or applying filters.  Deep neural networks have many layers that can be used understand minor details about a dataset that, in aggregate, allow a model to make accurate predictions about complicated data.  For example, datasets made of images are very complex and it is difficult to define features, so providing a network with many layers allows the network to be able to define features that it needs in order to learn useful details about a image set.  Unfortunately, deep networks take a very long time to train on existing hardware.  
 
@@ -41,7 +40,7 @@ Transfer learning allows new models to reuse weights from layers generated from 
 Figure 2
 
 ## Running the Model
-
+ Weights for the transfer network can be obtained from [VGG16 Github](https://gist.github.com/baraldilorenzo/07d7802847aaad0a35d3).   
 ###### The file structure for the repository:
 
 ```  
