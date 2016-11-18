@@ -3,7 +3,7 @@
 
 ## Overview
 
-The goal of the project is to build a neural network model to automate the classification of tennis video for the company Cizr.  This would allow the out of play portion of the video to be automatically cut and the active play portions can be packaged for players or coaches.
+The goal of the project is to build a neural network model to automate the classification of tennis video for the company [Cizr](http://www.cizr.com/).  This would allow the out of play portion of the video to be automatically cut and the active play portions can be packaged for players or coaches.
 
 ## Table of Contents
 1. [Dependencies](https://github.com/reba84/tennis_img_classification/blob/master/README.md#dependencies)
