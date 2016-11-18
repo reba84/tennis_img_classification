@@ -5,12 +5,12 @@
 
 
 ## Table of Contents
-1. [Dependencies](##Dependencies)
-2. [Motivation](##Motivation)
-3. [Data](##Data)
-4. [Model](##Model)
-5. [Running Model](##Running Model)
-6. [Performance](##Performance)
+1. [Dependencies](https://github.com/reba84/tennis_img_classification/blob/master/README.md#dependencies)
+2. [Motivation](https://github.com/reba84/tennis_img_classification/blob/master/README.md#motivation)
+3. [Data](https://github.com/reba84/tennis_img_classification/blob/master/README.md#data)
+4. [Model](https://github.com/reba84/tennis_img_classification/blob/master/README.md#model)
+5. [Running Model](https://github.com/reba84/tennis_img_classification/blob/master/README.md#running-model)
+6. [Performance](https://github.com/reba84/tennis_img_classification/blob/master/README.md#performance)
 
 ## Dependencies
   * Python 2.7
@@ -78,5 +78,10 @@ Figure 2
 
 
 ## Performance
+It was trained with 14,700 and validated against 6,300 images.  The model is best at predicting serves and overall has a 66% accuracy on the validation set.  If you consider serves as the one condition and the inside point and outside point as the other the model has 79% accuracy on serve images. 
 
-[include accuracy/epoch graphs, confusion matrix]
+![Confusion_matrix](https://cloud.githubusercontent.com/assets/17914936/20437644/5eb3d288-ad7a-11e6-80df-d1e7203f1d31.png)
+
+Accuracy and loss graphs showing model perfomance over 100 epochs
+
+![Val_training_graph](https://cloud.githubusercontent.com/assets/17914936/20437409/78f83360-ad79-11e6-91d7-40f039ec7ebc.png)  
