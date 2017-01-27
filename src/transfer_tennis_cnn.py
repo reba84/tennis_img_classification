@@ -166,7 +166,7 @@ def build_net(weights_path, top_model_weights_path, classes, img_width, img_heig
     return model
 
 def fit_net(model, train_processing, test_processing, n_train_samples, n_test_samples, epoch):
-    epoch_weights = ModelCheckpoint(filepath = 'transfer_weights/weights.{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', verbose=0, save_best_only=True)
+    epoch_weights = ModelCheckpoint(filepath = '../weights.{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', verbose=0, save_best_only=True)
     fit = model.fit_generator(train_processing, samples_per_epoch = n_train_samples, nb_epoch = epoch, validation_data = test_processing, nb_val_samples = n_test_samples, callbacks = [epoch_weights])
     accuracy = 'acc: {}, loss: {}, val_acc: {}, val_loss: {}'.format(*fit.history.values())
     return fit
@@ -178,8 +178,8 @@ def save_model(fit, epoch, batch_size, classes, n_train_samples, n_test_samples)
     # datetime = datetime_str.replace(" ", "_")
 
     #Save Weights & Model
-    weights_path = 'weights/' + datetime_str + '.h5'
-    architecture_path = 'weights/' + datetime_str + '.json'
+    weights_path = '../weights/' + datetime_str + '.h5'
+    architecture_path = '../weights/' + datetime_str + '.json'
     model.save_weights(weights_path, overwrite=True)
     model_json = model.to_json()
     with open(architecture_path, "w") as json_file:
@@ -196,13 +196,13 @@ def save_model(fit, epoch, batch_size, classes, n_train_samples, n_test_samples)
 
 if __name__ == '__main__':
     #Set Parameters fpr weights
-    weights_path = 'vgg16_weights.h5'
-    top_model_weights_path = '21k_images_weights2.h5'
+    weights_path = '../../vgg16_weights.h5'
+    top_model_weights_path = '21k_img_weights_matches_together.h5'
     #Set image perameters
     img_width, img_height = 150, 150
-    train_dir = 'train'
-    test_dir = 'test'
-    epoch = 100
+    train_dir = '../../train'
+    test_dir = '../../test'
+    epoch = 50
     batch_size = 32
     pool_size = (2, 2)
     kernel_size = (3, 3)
