@@ -52,8 +52,10 @@ def load_VGG16_net(weights_path):
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
     '''
+
     extra layers which I decided to not use and train more convolutional layers in my
     model below
+
     '''
 
     #model.add(ZeroPadding2D((1, 1)))
@@ -84,17 +86,21 @@ def load_VGG16_net(weights_path):
 
     return model
 
-    def generate_predictions(model, train_data_dir, validation_data_dir, img_width, img_height):
+def generate_predictions(model, train_data_dir, validation_data_dir, img_width, img_height):
+
     '''
     generates predictions and saves them in numpy arrays
+
     '''
+    datagen = ImageDataGenerator(rescale=1./255)
 
     train_generator = datagen.flow_from_directory(
-            train_data_dir,
-            target_size=(img_width, img_height),
-            batch_size=32,
-            class_mode=None,
-            shuffle=False)
+        train_data_dir,
+        target_size=(img_width, img_height),
+        batch_size=32,
+        class_mode=None,
+        shuffle=False)
+
     print train_generator.class_indices
     train_labels = train_generator.classes
 
@@ -162,16 +168,16 @@ def train_top_model(top_model_weights_path):
 
 if __name__ == '__main__':
     # path to the model weights files.
-    weights_path = 'vgg16_weights.h5'
-    top_model_weights_path = '21k_images_weights2.h5'
+    weights_path = '../../vgg16_weights.h5'
+    top_model_weights_path = '21k_img_weights_matchs_together.h5'
     # dimensions of our images.
     img_width, img_height = 150, 150
     #paths to data
-    train_data_dir = 'train'
-    validation_data_dir = 'test'
+    train_data_dir = '../../train'
+    validation_data_dir = '../../test'
 
     nb_epoch = 48
 
     model = load_VGG16_net(weights_path)
-    generate_predictions(model, train_data_dir, validation_data_dir, img_width, img_height)
-    train_top_model()
+    #generate_predictions(model, train_data_dir, validation_data_dir, img_width, img_height)
+    train_top_model(top_model_weights_path)
