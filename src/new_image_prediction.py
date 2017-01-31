@@ -5,7 +5,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from datetime import datetime
 import reload_transfer_tennis_cnn as reload_net
 from sklearn.metrics import confusion_matrix, accuracy_score, cohen_kappa_score, recall_score
-
+from keras import backend as K
 
 def predict_image(image_directory):
     datagen = ImageDataGenerator(rescale=1./255)
@@ -33,6 +33,14 @@ if __name__ == '__main__':
     image_directory = "test"
     img_width = 150
     img_height = 150
+
+    # this allows the neural net to run in tensorflow and theano ("th").
+    #Theano and tensorflow require different image input demensions.
+    if K.image_dim_ordering() == 'th':
+        input_shape = (3, img_width, img_height)
+    else:
+        input_shape = (img_width, img_height, 3)
+
     weights_path = 'weights/2016-11-06 09:03:13.h5'
     architecture_path = 'weights/2016-11-06 09:03:13.json'
 

@@ -7,7 +7,7 @@ from keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.optimizers import SGD
 from keras.utils import np_utils
-
+from keras import backend as K
 
 '''
 This code is based on fchollet's github
@@ -172,6 +172,13 @@ if __name__ == '__main__':
     top_model_weights_path = '21k_img_weights_matchs_together.h5'
     # dimensions of our images.
     img_width, img_height = 150, 150
+ 
+    # this allows the neural net to run in tensorflow and theano ("th").
+    #Theano and tensorflow require different image input demensions.
+    if K.image_dim_ordering() == 'th':
+        input_shape = (3, img_width, img_height)
+    else:
+        input_shape = (img_width, img_height, 3)
     #paths to data
     train_data_dir = '../../train'
     validation_data_dir = '../../test'

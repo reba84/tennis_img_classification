@@ -9,7 +9,7 @@ from keras.optimizers import SGD
 from keras.utils import np_utils
 from keras.callbacks import ModelCheckpoint
 from datetime import datetime
-
+from keras import backend as K
 
 
 def image_processing(train_dir, test_dir, img_width, img_height, batch_size):
