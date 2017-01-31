@@ -200,6 +200,14 @@ if __name__ == '__main__':
     top_model_weights_path = '21k_img_weights_matches_together.h5'
     #Set image perameters
     img_width, img_height = 150, 150
+    
+    # this allows the neural net to run in tensorflow and theano ("th").
+    #Theano and tensorflow require different image input demensions.
+    if K.image_dim_ordering() == 'th':
+        input_shape = (3, img_width, img_height)
+    else:
+        input_shape = (img_width, img_height, 3)
+   
     train_dir = '../../train'
     test_dir = '../../test'
     epoch = 50
