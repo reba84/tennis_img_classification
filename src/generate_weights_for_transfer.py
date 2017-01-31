@@ -22,7 +22,7 @@ def load_VGG16_net(weights_path):
 
     # build the VGG16 network
     model = Sequential()
-    model.add(ZeroPadding2D((1, 1), input_shape=(3, img_width, img_height)))
+    model.add(ZeroPadding2D((1, 1), input_shape=input_shape))
 
     model.add(Convolution2D(64, 3, 3, activation='relu', name='conv1_1'))
     model.add(ZeroPadding2D((1, 1)))
